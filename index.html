@@ -64,12 +64,17 @@
                     <span class="section-subtitle about__initial">Problem Statement</span>
                     <h2 class="section-title about__initial">Quality<br>Education</h2>
                     <p class="about__description">
-                    <li>How might we design <b style="color: var(--bold-text)">safer online learning</b> products for children that prioritize their privacy?</li>
+                        <li>How might we design <b style="color: var(--bold-text)">safer online learning</b> products
+                            for children that prioritize their privacy?</li>
+                        <br>
+                        <li>How might we establish a system for university students to <b
+                                style="color: var(--bold-text)">discover career opportunities</b> based on their digital
+                            portfolios?</li>
+                    </p>
                     <br>
-                    <li>How might we establish a system for university students to <b style="color: var(--bold-text)">discover career opportunities</b> based on their digital portfolios?</li></p>
                     <br>
-                    <br>
-                    <a href="https://www.undp.org/sustainable-development-goals/quality-education?gclid=CjwKCAjwyY6pBhA9EiwAMzmfwSekIxGPTaqq0KTTMxZpcVXunikIfOnIvjlHdN7-Hewl0AHuKbydcxoCqUYQAvD_BwE" class="button">Explore History</a>
+                    <a href="https://www.undp.org/sustainable-development-goals/quality-education?gclid=CjwKCAjwyY6pBhA9EiwAMzmfwSekIxGPTaqq0KTTMxZpcVXunikIfOnIvjlHdN7-Hewl0AHuKbydcxoCqUYQAvD_BwE"
+                        class="button">Explore History</a>
                 </div>
 
                 <img src="assets/img/E_GIF_04.gif" alt="" class="about__img">
@@ -206,14 +211,341 @@
                     <span class="menu__detail">You can define a car variable called car_var and assign it the
                         value 32. This variable represents a numerical value associated with a car in your Pygame
                         application. </span>
-                        <br> 
-                        <span class="menu__detail"> Here is the code being spoken through an auditory channel:  </span>
-                        <br>
-                        <br>
+                    <br>
+                    <span class="menu__detail"> Here is the code being spoken through an auditory channel: </span>
+                    <br>
+                    <br>
                     <audio controls style="width: 165px;">
                         <source src="You can define a car (1).mp3" type="audio/mpeg">
                     </audio>
-                    <a href="https://medium.com/@rgarza7/individual-learning-styles-and-learning-to-code-41eb8054453a" class="button menu__button"><i class='fas fa-external-link-alt'></i></a>
+                    <a href="https://medium.com/@rgarza7/individual-learning-styles-and-learning-to-code-41eb8054453a"
+                        class="button menu__button"><i class='fas fa-external-link-alt'></i></a>
+                </div>
+
+                <div class="menu__content" style=" width: 750px;">
+                    <h3 class="menu__name" style="text-align: center;">Sample Python Code for Game Dev</h3>
+                    <br>
+                    <div class="scrollable-column">
+                        <pre>
+                            import pygame
+import random
+import asyncio
+
+
+"""
+----------------------------------------------------------------------------------
+                                    CONSTANTS
+----------------------------------------------------------------------------------                                    
+"""
+# Window sizes
+WIDTH = 750
+HEIGHT = 750
+
+
+# initializing pygame
+pygame.init()
+WINDOW = pygame.display.set_mode((WIDTH, HEIGHT))
+pygame.display.set_caption("Snake Game")
+
+# Snake
+SNAKE_SIZE = 25
+snake_position = [SNAKE_SIZE*5, SNAKE_SIZE*5]
+SNAKE = [[SNAKE_SIZE*5, SNAKE_SIZE*5],
+         [SNAKE_SIZE*4, SNAKE_SIZE*5],
+         [SNAKE_SIZE*3, SNAKE_SIZE*5],
+         [SNAKE_SIZE*2, SNAKE_SIZE*5],
+         [SNAKE_SIZE*1, SNAKE_SIZE*5],
+         [SNAKE_SIZE*0, SNAKE_SIZE*5]]
+DIRECTION = "right"
+CHANGE = "right"
+DEAD = False
+SPEED = SNAKE_SIZE
+
+# Game speed
+FPS = 10
+
+# Fruit
+FRUIT = [0, 0]
+SPAWNED = False
+Eat = False
+
+# Score
+SCORE = 0
+FONT = pygame.font.SysFont("Times New Roman", 30)
+GAME_OVER_FONT = pygame.font.SysFont("Time New Roman", 60)
+
+# Settings
+SETTING = 0
+THEME_Fruit = "white"
+THEME_Snake = "yellow"
+THEME_Border = "green"
+THEME_Ground = "black"
+THEME_NAME = "Basic"
+
+
+"""
+----------------------------------------------------------------------------------
+                                    FUNCTIONS
+----------------------------------------------------------------------------------                                    
+"""
+
+
+# Functions that draws and generate the fruit
+def generate_fruit():
+    global FRUIT
+    FRUIT = [random.randint(1, WIDTH//SNAKE_SIZE-2)*SNAKE_SIZE, random.randint(1, HEIGHT//SNAKE_SIZE-2)*SNAKE_SIZE]
+
+
+def draw_fruit():
+    global FRUIT, SPAWNED
+
+    if not SPAWNED:
+        generate_fruit()
+        SPAWNED = True
+
+    fruit_rect = pygame.Rect(FRUIT[0], FRUIT[1], SNAKE_SIZE, SNAKE_SIZE)
+    # print(FRUIT)
+    pygame.draw.rect(WINDOW, THEME_Fruit, fruit_rect)
+
+
+# Game over function
+def game_over():
+    global SPEED, DEAD
+
+    DEAD = True
+    GO_Surface = GAME_OVER_FONT.render("YOUR SCORE IS: "+str(SCORE), True, "black")
+    height = GO_Surface.get_height()
+    width = GO_Surface.get_width()
+    X = (WIDTH-width)/2
+    Y = (HEIGHT-height)/2
+    margin = 25
+    RED_REC = pygame.Rect(X-margin, Y-margin, width+2*margin, height+2*margin)
+    pygame.draw.rect(WINDOW, THEME_Fruit, RED_REC, 0, 10)
+    WINDOW.blit(GO_Surface, (X, Y))
+    pygame.display.update()
+
+    SPEED = 0
+
+
+# Function to display the current score of the game
+def display_score():
+    score_surface = FONT.render("Score: " + str(SCORE), True, THEME_Fruit)
+    margin = 10
+    WINDOW.blit(score_surface, (SNAKE_SIZE+margin, SNAKE_SIZE+margin))
+
+
+def display_theme():
+    name = FONT.render("Theme: " + str(THEME_NAME), True, THEME_Fruit)
+    WINDOW.blit(name, (WIDTH-SNAKE_SIZE-200, HEIGHT-SNAKE_SIZE-40))
+
+
+# Function to check for collision with the wall and self collision
+def check_collision():
+    # Out of border mechanism
+    if not (SNAKE_SIZE <= snake_position[0] <= WIDTH-SNAKE_SIZE*2):
+        game_over()
+    if not (SNAKE_SIZE <= snake_position[1] <= HEIGHT-SNAKE_SIZE*2):
+        game_over()
+
+    # Self collision
+    for block in SNAKE[1:]:
+        if block[0] == snake_position[0] and block[1] == snake_position[1]:
+            game_over()
+
+
+# Drawing functions
+def draw_bg():
+
+    # image = pygame.transform.scale(pygame.image.load("Resources/Block.png"), (SNAKE_SIZE, SNAKE_SIZE))
+    # _, _, width, height = image.get_rect()
+    # tiles = []
+    #
+    # for i in range(WIDTH//width+1):
+    #     for j in range(HEIGHT//height+1):
+    #         pos = (i*width, j*height)
+    #         tiles.append(pos)
+    # for tile in tiles:
+    #     WINDOW.blit(image, tile)
+
+    bg = pygame.Rect(0, 0, WIDTH, HEIGHT)
+    pygame.draw.rect(WINDOW, THEME_Ground, bg)
+
+
+# function that draws the snake
+def draw_snake():
+    global SPAWNED, Eat, DIRECTION, SCORE
+
+    if CHANGE == "up" and DIRECTION != "down":
+        DIRECTION = "up"
+    if CHANGE == "down" and DIRECTION != "up":
+        DIRECTION = "down"
+    if CHANGE == "left" and DIRECTION != "right":
+        DIRECTION = "left"
+    if CHANGE == "right" and DIRECTION != "left":
+        DIRECTION = "right"
+
+    if DIRECTION == "right":
+        snake_position[0] += SPEED
+    if DIRECTION == "left":
+        snake_position[0] -= SPEED
+    if DIRECTION == "up":
+        snake_position[1] -= SPEED
+    if DIRECTION == "down":
+        snake_position[1] += SPEED
+
+    SNAKE.insert(0, list(snake_position))
+    if (snake_position[0] == FRUIT[0] and snake_position[1] == FRUIT[1]) or Eat:
+        SPAWNED = False
+        Eat = False
+        SCORE += 10
+    else:
+        SNAKE.pop()
+    for pos in SNAKE:
+        pygame.draw.rect(WINDOW, THEME_Snake, pygame.Rect(pos[0], pos[1], SNAKE_SIZE, SNAKE_SIZE))
+
+
+def draw_border():
+    left = pygame.Rect(0, 0, SNAKE_SIZE, HEIGHT)
+    right = pygame.Rect(WIDTH-SNAKE_SIZE, 0, SNAKE_SIZE, HEIGHT)
+    top = pygame.Rect(0, 0, WIDTH, SNAKE_SIZE)
+    bottom = pygame.Rect(0, HEIGHT-SNAKE_SIZE, WIDTH, SNAKE_SIZE)
+    pygame.draw.rect(WINDOW, THEME_Border, left)
+    pygame.draw.rect(WINDOW, THEME_Border, right)
+    pygame.draw.rect(WINDOW, THEME_Border, top)
+    pygame.draw.rect(WINDOW, THEME_Border, bottom)
+
+
+# Draw everything
+def draw():
+    draw_bg()
+    draw_snake()
+    draw_fruit()
+    draw_border()
+    display_score()
+    display_theme()
+
+    # Makes sure to update the display after drawing
+    pygame.display.update()
+
+
+def restart():
+    global SPEED, SNAKE_SIZE, snake_position, SNAKE, DIRECTION, CHANGE, SCORE, DEAD
+
+    DEAD = False
+    snake_position = [SNAKE_SIZE * 5, SNAKE_SIZE * 5]
+    SNAKE = [[SNAKE_SIZE * 5, SNAKE_SIZE * 5],
+             [SNAKE_SIZE * 4, SNAKE_SIZE * 5],
+             [SNAKE_SIZE * 3, SNAKE_SIZE * 5],
+             [SNAKE_SIZE * 2, SNAKE_SIZE * 5],
+             [SNAKE_SIZE * 1, SNAKE_SIZE * 5],
+             [SNAKE_SIZE * 0, SNAKE_SIZE * 5]]
+    DIRECTION = "right"
+    CHANGE = "right"
+    SPEED = SNAKE_SIZE
+    SCORE = 0
+    generate_fruit()
+
+
+def theme(number):
+    global THEME_Border, THEME_Fruit, THEME_Snake, THEME_Ground, THEME_NAME
+
+    # Normal
+    if number == 0:
+        THEME_Snake = "white"
+        THEME_Fruit = "white"
+        THEME_Ground = "black"
+        THEME_Border = "white"
+        THEME_NAME = "Basic"
+
+    # Desert
+    if number == 1:
+        THEME_Snake = (252, 186, 3)
+        THEME_Fruit = (252, 132, 3)
+        THEME_Ground = (179, 99, 14)
+        THEME_Border = (105, 63, 19)
+        THEME_NAME = "Desert"
+
+    # Snow
+    if number == 2:
+        THEME_Snake = (72, 193, 219)
+        THEME_Fruit = (200, 241, 250)
+        THEME_Ground = (125, 231, 255)
+        THEME_Border = (22, 79, 92)
+        THEME_NAME = "Snow"
+
+    # Space
+    if number == 3:
+        THEME_Snake = (0, 0, 0)
+        THEME_Fruit = (234, 242, 7)
+        THEME_Ground = (13, 29, 110)
+        THEME_Border = (7, 13, 43)
+        THEME_NAME = "Space"
+
+    # Jungle
+    if number == 4:
+        THEME_Snake = (88, 173, 9)
+        THEME_Fruit = (255, 0, 0)
+        THEME_Ground = (19, 102, 4)
+        THEME_Border = (87, 54, 12)
+        THEME_NAME = "Jungle"
+
+
+# Main function
+async def main():
+    # global variables
+    global CHANGE, Eat
+
+    running = True
+    theme(0)
+
+    # main loop
+    while running:
+
+        # check for events
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                running = False
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_ESCAPE:
+                    running = False
+                if event.key == pygame.K_DOWN:
+                    CHANGE = "down"
+                if event.key == pygame.K_UP:
+                    CHANGE = "up"
+                if event.key == pygame.K_LEFT:
+                    CHANGE = "left"
+                if event.key == pygame.K_RIGHT:
+                    CHANGE = "right"
+                if event.key == pygame.K_t:
+                    Eat = True
+                if event.key == pygame.K_SPACE and DEAD:
+                    restart()
+                if event.key == pygame.K_KP1:
+                    theme(1)
+                if event.key == pygame.K_KP0:
+                    theme(0)
+                if event.key == pygame.K_KP2:
+                    theme(2)
+                if event.key == pygame.K_KP3:
+                    theme(3)
+                if event.key == pygame.K_KP4:
+                    theme(4)
+
+
+        # Draw everything
+        draw()
+        check_collision()
+        # Control game speed
+        clock = pygame.time.Clock()
+        clock.tick(FPS)
+        await asyncio.sleep(0)
+
+
+asyncio.run(main())
+
+                        </pre>
+                    </div>
+
                 </div>
 
             </div>
@@ -222,9 +554,14 @@
         <section class="contact section bd-container" id="contact">
             <div class="contact__container bd-grid">
                 <div class="contact__data">
-                    <span class="section-subtitle contact__initial">Get To Know Our Team: Team NIP (Non-coders In Practice)</span>
+                    <span class="section-subtitle contact__initial">Get To Know Our Team: Team NIP (Non-coders In
+                        Practice)</span>
                     <h2 class="section-title contact__initial">More About Us</h2>
-                    <h7>We are a group of highly motivated and aspirational developers who want to make a difference in the world. Using our different skillsets (web-design, graphic design, game development, web-development, AI and ML, and Research), we decided to bring forth this idea which utilizes the concept of AI and Machine Learning with a focus on different learning types to create a safe and accessible learning space for all! Connect with us on our socials! </h7>
+                    <h7>We are a group of highly motivated and aspirational developers who want to make a difference in
+                        the world. Using our different skillsets (web-design, graphic design, game development,
+                        web-development, AI and ML, and Research), we decided to bring forth this idea which utilizes
+                        the concept of AI and Machine Learning with a focus on different learning types to create a safe
+                        and accessible learning space for all! Connect with us on our socials! </h7>
 
                 </div>
 
@@ -232,7 +569,9 @@
                     <a href="https://prezi.com/view/CRp7JxbDeo7uqUED8VgV/" class="button">Revisit The Presentation</a>
                     <br>
                     <br>
-                    <iframe src="https://prezi.com/p/embed/CRp7JxbDeo7uqUED8VgV/" id="iframe_container" frameborder="0" webkitallowfullscreen="" mozallowfullscreen="" allowfullscreen="" allow="autoplay; fullscreen" height="245" width="285"></iframe>
+                    <iframe src="https://prezi.com/p/embed/CRp7JxbDeo7uqUED8VgV/" id="iframe_container" frameborder="0"
+                        webkitallowfullscreen="" mozallowfullscreen="" allowfullscreen="" allow="autoplay; fullscreen"
+                        height="245" width="285"></iframe>
                 </div>
             </div>
         </section>
@@ -245,8 +584,10 @@
             <div class="footer__content">
                 <h3 class="footer__title">Daniel Chahine</h3>
                 <ul>
-                    <a href="https://www.linkedin.com/in/danielchahine/" class="footer__social"><i class='bx bxl-linkedin'></i></a>
-                    <a href="https://www.instagram.com/dxni.ch/" class="footer__social"><i class='bx bxl-instagram'></i></a>
+                    <a href="https://www.linkedin.com/in/danielchahine/" class="footer__social"><i
+                            class='bx bxl-linkedin'></i></a>
+                    <a href="https://www.instagram.com/dxni.ch/" class="footer__social"><i
+                            class='bx bxl-instagram'></i></a>
                     <a href="https://github.com/DanielChahine0" class="footer__social"><i class='bx bxl-github'></i></a>
                 </ul>
             </div>
@@ -254,18 +595,24 @@
             <div class="footer__content">
                 <h3 class="footer__title">Ekam Momi</h3>
                 <ul>
-                    <a href="https://www.linkedin.com/in/ekam-momi-a3a8b4227/" class="footer__social"><i class='bx bxl-linkedin'></i></a>
-                    <a href="https://www.instagram.com/ekam.momi/" class="footer__social"><i class='bx bxl-instagram'></i></a>
+                    <a href="https://www.linkedin.com/in/ekam-momi-a3a8b4227/" class="footer__social"><i
+                            class='bx bxl-linkedin'></i></a>
+                    <a href="https://www.instagram.com/ekam.momi/" class="footer__social"><i
+                            class='bx bxl-instagram'></i></a>
                 </ul>
             </div>
 
             <div class="footer__content">
                 <h3 class="footer__title">Abrar Tarafder</h3>
                 <ul>
-                    <a href="https://www.linkedin.com/in/abrar-tarafder/" class="footer__social"><i class='bx bxl-linkedin'></i></a>
-                    <a href="https://www.instagram.com/abrartarafder/?hl=en" class="footer__social"><i class='bx bxl-instagram'></i></a>
-                    <a href="https://github.com/abrartarafder?tab=repositories" class="footer__social"><i class='bx bxl-github'></i></a>
-                    <a href="https://abrartarafder.github.io/portfolio-short/" class="footer__social"><i class='bx bx-globe'></i></a>
+                    <a href="https://www.linkedin.com/in/abrar-tarafder/" class="footer__social"><i
+                            class='bx bxl-linkedin'></i></a>
+                    <a href="https://www.instagram.com/abrartarafder/?hl=en" class="footer__social"><i
+                            class='bx bxl-instagram'></i></a>
+                    <a href="https://github.com/abrartarafder?tab=repositories" class="footer__social"><i
+                            class='bx bxl-github'></i></a>
+                    <a href="https://abrartarafder.github.io/portfolio-short/" class="footer__social"><i
+                            class='bx bx-globe'></i></a>
                 </ul>
             </div>
 
@@ -273,7 +620,8 @@
                 <h3 class="footer__title">Stefewn Johnson</h3>
                 <ul>
                     <!-- <a href="#" class="footer__social"><i class='bx bxl-linkedin'></i></a> -->
-                    <a href="https://www.instagram.com/stefewnjohnson/?hl=en" class="footer__social"><i class='bx bxl-instagram'></i></a>
+                    <a href="https://www.instagram.com/stefewnjohnson/?hl=en" class="footer__social"><i
+                            class='bx bxl-instagram'></i></a>
                     <!-- <a href="#" class="footer__social"><i class='bx bxl-twitter'></i></a> -->
                 </ul>
             </div>
