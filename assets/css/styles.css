@@ -688,3 +688,12 @@ img {
   margin-right: 10px; /* Add some spacing between the logo and text */
   margin-top: 10px;
 }
+
+.button-container {
+  white-space: nowrap; /* Prevents button wrapping to the next line */
+}
+
+.button {
+  margin-right: 20px;
+}
+
