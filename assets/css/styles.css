@@ -19,6 +19,7 @@
   --container-color: #FFFFFF;
   --navbar-color: white;
   --bold-text: #0095e4;
+  --p-text: #0095e4;
 
 
 
@@ -85,6 +86,7 @@ body.dark-theme {
   --container-color: #313131;
   --green-color:#0095e4;
   --bold-text:#0095e4;
+  --p-text: #ffffff;
 
 }
 
@@ -499,7 +501,7 @@ img {
 }
 
 .footer__social:hover {
-  color: #0095e4;
+  color: var(--p-text);
 }
 
 .footer__title {
