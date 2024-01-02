@@ -7,7 +7,7 @@
 
   --first-color:  #0095e4;;
   --first-color-alt: #000000;
-  --green-color:  #000000;
+  --green-color:  #e6eff4;;
   --title-color: #000000;
   --text-color: #000000;
   --text-color-light: #A6A6A6;
@@ -84,7 +84,7 @@ body.dark-theme {
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#000000",endColorstr="#002133",GradientType=1);
   --navbar-color: #000000;
   --container-color: #000000;
-  --green-color:#0095e4;
+  --green-color:#1b1b1b;
   --bold-text:#0095e4;
   --p-text: #ffffff;
 
